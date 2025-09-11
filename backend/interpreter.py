@@ -53,21 +53,16 @@ class Interpreter:
         # 1. 내장 타입 함수 호출 처리 (예: int("123") 또는 int())
         if isinstance(callee, BuiltinType):
             type_name = callee.name
-            # --- [수정된 부분] ---
-            # 인자의 개수에 따라 '타입 지정'과 '타입 변환'을 구분합니다.
             if len(args) == 0:
-                # 인자가 없으면, 타입 객체 자체를 반환 (console.read를 위해)
                 return callee
             elif len(args) == 1:
-                # 인자가 하나 있으면, 타입 변환을 수행
                 if type_name == 'int':
                     return int(args[0])
                 if type_name == 'string':
                     return str(args[0])
             else:
                 raise Exception(f"{type_name}() takes 0 or 1 arguments, but {len(args)} were given.")
-            # --- [여기까지] ---
-
+            
         # 2. 내장 일반 함수 호출 처리 (예: console.read)
         if isinstance(callee, BuiltinFunction):
             func_name = callee.name
@@ -106,7 +101,6 @@ class Interpreter:
         right_val = self.visit(node.right)
         op_type = node.op.type
 
-        # --- [연산 로직 확장] ---
         if op_type == PLUS:
             if isinstance(left_val, str) or isinstance(right_val, str): return str(left_val) + str(right_val)
             else: return left_val + right_val
@@ -163,12 +157,10 @@ class Interpreter:
         value = self.GLOBAL_SCOPE.get(name)
         if value is None:
             raise NameError(f"Error: Variable '{name}' is not defined.")
-        # 불필요한 if 문을 삭제하여 더 이상 self.current_token을 사용하지 않습니다.
         return value
 
     def visit_NumberNode(self, node):
         """숫자 자체를 처리합니다."""
-        # 숫자 노드는 그냥 자신의 숫자 값을 반환하면 됩니다.
         return node.value
 
     def interpret(self, tree):

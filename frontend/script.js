@@ -1,8 +1,8 @@
 // frontend/script.js
-// CodeMirror 에디터를 초기화합니다.
+
 const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
     lineNumbers: true,
-    mode: 'python', // JF 언어용 문법 하이라이팅이 없으므로, 일단 python으로 설정
+    mode: 'python', // JF 언어에 맞는 모드가 없으므로 임시로 python 사용
     theme: 'material-darker'
 });
 
@@ -13,7 +13,7 @@ const outputContainer = document.getElementById('output-container');
 const API_ENDPOINT = 'https://jf-language-online.onrender.com/run';
 
 runButton.addEventListener('click', async () => {
-    const code = editor.getValue(); // 에디터에 입력된 코드를 가져옵니다.
+    const code = editor.getValue(); 
     outputContainer.textContent = 'Executing...';
     outputContainer.classList.remove('error');
 
@@ -29,7 +29,7 @@ runButton.addEventListener('click', async () => {
         const result = await response.json();
 
         if (result.error) {
-            // 에러가 있다면 에러 메시지를 빨간색으로 표시
+            // 오류가 발생했다면 오류 메시지 출력
             outputContainer.textContent = result.output + result.error;
             outputContainer.classList.add('error');
         } else {
@@ -43,7 +43,7 @@ runButton.addEventListener('click', async () => {
     }
 });
 
-// 예시 코드 설정
+// 예시 코드 
 editor.setValue(`
 note: JF Language Example Code
 

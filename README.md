@@ -4,7 +4,7 @@
 [![Run Online IDE](https://img.shields.io/badge/Run-Online%20IDE-blue.svg)](https://jf-language-online.pages.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**JF Language**는 사용자가 직접 만든 스크립트 언어를 웹에서 즉시 실행하고 테스트할 수 있는 온라인 통합 개발 환경(IDE)입니다.
+**JF Language**는 웹 기반의 온라인 IDE를 통해 누구나 쉽게 배우고 실행할 수 있는 간단한 스크립트 언어입니다.
 
 ---
 

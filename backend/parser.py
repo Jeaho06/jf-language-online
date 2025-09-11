@@ -177,26 +177,19 @@ class Parser:
 
     def statement(self):
         """하나의 문장을 파싱합니다."""
-        # ID로 시작하는 것은 변수 선언(is)이거나 메소드 호출(.)일 수 있으므로,
-        # 일단 표현식(expr)으로 끝까지 파싱합니다.
         node = self.expr()
 
-        # 만약 파싱이 끝난 뒤 다음 토큰이 'is' 라면,
-        # 이것은 사실 변수 선언문의 일부였습니다.
         if self.current_token.type == IS:
-            # node가 변수 이름(VarAccessNode)이 맞는지 확인
+
             if not isinstance(node, VarAccessNode):
                 raise Exception("Syntax Error: 'is' keyword can only follow a variable name.")
             
-            # 'is' 키워드를 소모하고, 등호(=) 뒤의 값을 다시 파싱합니다.
             self.eat(IS)
             value_node = self.expr()
-            
-            # 최종적으로 VarDeclNode를 완성하여 반환합니다.
+
             var_type_token = Token('UNKNOWN_TYPE', 'unknown') # 임시 타입
             return VarDeclNode(node.var_name, var_type_token, value_node)
-        
-        # 다음 토큰이 'is'가 아니라면, 원래 파싱했던 표현식(메소드 호출 등)이 맞습니다.
+
         return node
         
     def parse(self):

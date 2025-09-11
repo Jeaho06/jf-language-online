@@ -1,8 +1,6 @@
 # lexer.py
 
 # --- 1. 토큰 타입 정의 ---
-# 우리 언어가 인식할 단어(토큰)의 종류를 미리 정해둡니다.
-# 파일의 끝을 의미하는 EOF(End-Of-File)도 중요한 토큰입니다.
 INTEGER   = 'INTEGER'   # 숫자 (예: 10)
 STRING    = 'STRING'    # 문자열 (예: "hello")
 ID        = 'ID'        # 변수 이름 (Identifier, 예: x)
@@ -80,12 +78,8 @@ class Lexer:
             result += self.current_char
             self.advance()
         
-        # 여기서 '엿보기' 규칙을 사용합니다!
         if self.current_char == '.' and self.peek() is not None and self.peek().isdigit():
-            # 마침표 뒤에 숫자가 오면 소수점으로 처리 (지금은 구현하지 않음)
-            # 이 부분은 나중에 float 타입을 추가할 때 확장할 것입니다.
-            # 지금은 정수만 처리하므로, 일단 오류를 발생시키겠습니다.
-            raise Exception("Float type is not yet supported.")
+            raise Exception("Float type is not yet supported.") # 소수점은 구현 안해서 오류 처리.
         
         return int(result)
 
@@ -95,9 +89,8 @@ class Lexer:
         while self.current_char is not None and (self.current_char.isalnum() or self.current_char == '_'):
             result += self.current_char; self.advance()
         
-        # 'int'는 이제 일반 ID이므로 키워드 목록에서 제거합니다.
         RESERVED_KEYWORDS = {
-            'is': Token(IS, 'is'), 'print': Token(PRINT, 'print'), # 'print'는 console.print를 위해 임시 유지
+            'is': Token(IS, 'is'), 'print': Token(PRINT, 'print'),
             'true': Token(TRUE, True), 'false': Token(FALSE, False),
             'and': Token(AND, 'and'), 'or': Token(OR, 'or'), 'not': Token(NOT, 'not'),
         }
@@ -107,7 +100,7 @@ class Lexer:
         """'note:' 주석을 발견했을 때, 해당 줄의 끝까지 건너뛰는 메소드"""
         while self.current_char is not None and self.current_char != '\n':
             self.advance()
-        self.skip_whitespace() # 줄바꿈 문자 뒤의 공백도 건너뛸 수 있도록 추가
+        self.skip_whitespace()
     
     def string(self):
         """문자열 리터럴을 파싱합니다 (보간 포함)."""
