@@ -12,7 +12,7 @@ const outputContainer = document.getElementById('output-container');
 // 백엔드 API 서버의 주소입니다.
 // 로컬 테스트 시에는 'http://127.0.0.1:5000/run'
 // 나중에 배포 후에는 실제 배포된 서버 주소로 변경해야 합니다.
-const API_ENDPOINT = 'https://jf-language-online.onrender.com';
+const API_ENDPOINT = 'https://jf-language-online.onrender.com/run';
 
 runButton.addEventListener('click', async () => {
     const code = editor.getValue(); // 에디터에 입력된 코드를 가져옵니다.
