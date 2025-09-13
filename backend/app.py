@@ -21,7 +21,8 @@ def run_code():
         return jsonify({'error': 'Code not provided'}), 400
 
     code = data['code']
-    
+    user_inputs_text = data.get('inputs', '')
+    input_list = user_inputs_text.split('\n')
     # print() 함수의 출력을 가로채기 위한 설정
     output_buffer = io.StringIO()
     
@@ -33,7 +34,7 @@ def run_code():
             tree = parser.parse()
             
             # 새로운 인터프리터 인스턴스를 매번 생성하여 실행 환경 초기화
-            interpreter = Interpreter()
+            interpreter = Interpreter(inputs=input_list)
             interpreter.interpret(tree)
 
         # 가로챈 출력 결과를 변수에 저장

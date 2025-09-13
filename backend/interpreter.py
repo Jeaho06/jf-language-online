@@ -14,7 +14,7 @@ class BuiltinType:
         self.name = name
         
 class Interpreter:
-    def __init__(self):
+    def __init__(self, inputs=[]):
         self.GLOBAL_SCOPE = {
             # 내장 객체 및 함수를 미리 정의
             'console': {
@@ -24,6 +24,9 @@ class Interpreter:
             'int': BuiltinType('int'),
             'string': BuiltinType('string')
         }
+
+        self.inputs = inputs
+        self.input_index = 0
 
     def visit(self, node):
         """
@@ -70,19 +73,22 @@ class Interpreter:
                 print(*args)
                 return None
             elif func_name == 'read':
+                input_value = ""
+                if self.input_index < len(self.inputs):
+                    input_value = self.inputs[self.input_index]
+                    self.input_index += 1
                 # args[0]는 이제 BuiltinType 객체 (예: int()의 반환값)
                 input_type = args[0] if args else BuiltinType('string')
                 if not isinstance(input_type, BuiltinType):
                     raise Exception("Argument to console.read() must be a type like int() or string().")
                 
-                user_input = input() # 프롬프트 없이 입력받기
                 if input_type.name == 'int':
                     try:
-                        return int(user_input)
+                        return int(input_value)
                     except ValueError:
-                        raise Exception(f"Invalid input: Could not convert '{user_input}' to int.")
+                        raise Exception(f"Invalid input: Could not convert '{input_value}' to int.")
                 else: # 기본값은 string
-                    return str(user_input)
+                    return str(input_value)
 
         raise Exception("Not a callable function.")
     

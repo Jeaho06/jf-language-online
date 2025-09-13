@@ -14,6 +14,7 @@ const API_ENDPOINT = 'https://jf-language-online.onrender.com/run';
 
 runButton.addEventListener('click', async () => {
     const code = editor.getValue(); 
+    const inputs = document.getElementById('input-box').value;
     outputContainer.textContent = 'Executing...';
     outputContainer.classList.remove('error');
 
@@ -23,7 +24,7 @@ runButton.addEventListener('click', async () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ code: code })
+            body: JSON.stringify({ code: code, inputs: inputs })
         });
 
         const result = await response.json();

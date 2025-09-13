@@ -317,16 +317,43 @@ note: The value of x is 10
 note: 10 + 20 is 30</code></pre>
 
         <h3 id="52-consoleread">5.2 <code>console.read()</code></h3>
-        <p>사용자로부터 한 줄의 입력을 받습니다. 이 기능은 주로 사용자가 입력한 값을 변수에 저장할 때 사용됩니다. <code>console.read()</code>는 선택적으로 <code>int()</code>나 <code>string()</code>을 인자로 받아 입력받은 값을 해당 타입으로 변환하려고 시도합니다. 기본값은 <code>string()</code> 입니다.</p>
-        <pre><code>note: 사용자의 이름을 입력받아 name 변수에 저장합니다.
-console.print("Enter your name: ").
+        <p>
+            사용자로부터 입력을 받기 위한 기능입니다. 온라인 IDE에서는 코드를 실행하기 전, 별도의 <strong>'Input'</strong> 입력창에 필요한 모든 값을 미리 작성해야 합니다.
+        </p>
+        <p>
+            <code>console.read()</code>가 코드에서 호출될 때마다 'Input' 창에 작성된 텍스트를 위에서부터 <strong>한 줄씩</strong> 순서대로 읽어옵니다.
+        </p>
+        <p>
+            기존과 동일하게 <code>console.read()</code>는 선택적으로 <code>int()</code>나 <code>string()</code>을 인자로 받아 입력받은 값을 해당 타입으로 변환하려고 시도합니다. 인자를 생략할 경우 기본값은 <code>string()</code> 입니다.
+        </p>
+
+        <h4>사용 방법 및 예시</h4>
+        <p><strong>예시:</strong> 이름(문자열)과 나이(정수)를 입력받아 출력하는 코드</p>
+
+        <p><strong>1. 코드 에디터에 작성할 JF 코드:</strong></p>
+        <pre><code>console.print("이름과 나이를 한 줄에 하나씩 입력해주세요.").
+
+note: 첫 번째 입력을 받아 name 변수에 저장합니다.
 name is console.read(string()).
 
-note: 사용자의 나이를 입력받아 정수형으로 age 변수에 저장합니다.
-console.print("Enter your age: ").
+note: 두 번째 입력을 받아 정수형으로 age 변수에 저장합니다.
 age is console.read(int()).
 
-console.print("Hello, @{name}! You are @{age} years old.").</code></pre>
+console.print("--- 입력 결과 ---").
+console.print("안녕하세요, @{name}님!").
+console.print("내년에는 @{age + 1}살이 되시는군요.").</code></pre>
+
+        <p><strong>2. 'Input' 창에 미리 입력할 내용:</strong></p>
+        <pre style="background-color:#2d2d2d; color:#f1f1f1;">
+        <code>
+Jeaho
+20     </code></pre>
+
+        <p><strong>3. 예상 실행 결과 (Output):</strong></p>
+        <pre style="background-color:#2d2d2d; color:#f1f1f1;"><code>이름과 나이를 한 줄에 하나씩 입력해주세요.
+--- 입력 결과 ---
+안녕하세요, Jeaho님!
+내년에는 21살이 되시는군요.</code></pre>
 
         <h2 id="6-타입-변환-type-casting">6. 타입 변환 (Type Casting)</h2>
         <p>값의 자료형을 다른 자료형으로 명시적으로 변환하는 기능입니다.</p>
