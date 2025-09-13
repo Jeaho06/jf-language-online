@@ -7,6 +7,23 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/material-darker.min.css">
+    <style>
+        /* 추가된 footer 스타일 */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        footer a {
+            color: #569cd6;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -17,6 +34,11 @@
         <button id="run-button">Run Code</button>
         <h2>Output:</h2>
         <pre id="output-container"></pre>
+
+        <footer>
+            <a href="GUIDE.html" target="_blank">JF Language 가이드북</a>
+            <a href="https://github.com/Jeaho06/jf-language-online" target="_blank">GitHub Repository</a>
+        </footer>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>

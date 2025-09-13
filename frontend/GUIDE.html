@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JF 언어 공식 가이드북</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3, h4 {
+            border-bottom: 1px solid #eaecef;
+            padding-bottom: 0.3em;
+            margin-top: 24px;
+            margin-bottom: 16px;
+        }
+        h1 { font-size: 2.2em; }
+        h2 { font-size: 1.8em; }
+        h3 { font-size: 1.5em; }
+
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: rgba(27,31,35,0.05);
+            padding: 0.2em 0.4em;
+            margin: 0;
+            font-size: 85%;
+            border-radius: 3px;
+        }
+
+        pre {
+            background-color: #2d2d2d;
+            color: #f1f1f1;
+            padding: 16px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            margin: 0;
+            font-size: 100%;
+            color: inherit;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #e1e4e8;
+            margin: 32px 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JF 언어 공식 가이드북 (v1.0)</h1>
+        <p>JF 언어에 오신 것을 환영합니다! 이 문서는 JF 언어의 공식 문법과 규칙을 설명하는 가이드북입니다. 이 문서는 <code>README.md</code>에서 간략하게 소개된 문법을 더욱 상세하게 설명하며, JF 언어로 프로그램을 작성하는 데 필요한 모든 정보를 제공합니다.</p>
+
+        <h2 id="toc">목차</h2>
+        <ol>
+            <li><a href="#1-기본-구조">기본 구조</a></li>
+            <li><a href="#2-주석-comments">주석 (Comments)</a></li>
+            <li><a href="#3-변수와-자료형-variables-and-data-types">변수와 자료형 (Variables and Data Types)</a>
+                <ul>
+                    <li><a href="#31-선언과-할당">선언과 할당</a></li>
+                    <li><a href="#32-자료형의-종류">자료형의 종류</a></li>
+                    <li><a href="#33-문자열-보간-string-interpolation">문자열 보간 (String Interpolation)</a></li>
+                </ul>
+            </li>
+            <li><a href="#4-연산자-operators">연산자 (Operators)</a>
+                <ul>
+                    <li><a href="#41-산술-연산자">산술 연산자</a></li>
+                    <li><a href="#42-비교-연산자">비교 연산자</a></li>
+                    <li><a href="#43-논리-연산자">논리 연산자</a></li>
+                </ul>
+            </li>
+            <li><a href="#5-내장-기능-built-in-features">내장 기능 (Built-in Features)</a>
+                <ul>
+                    <li><a href="#51-consoleprint"><code>console.print()</code></a></li>
+                    <li><a href="#52-consoleread"><code>console.read()</code></a></li>
+                </ul>
+            </li>
+            <li><a href="#6-타입-변환-type-casting">타입 변환 (Type Casting)</a></li>
+        </ol>
+
+        <hr>
+
+        <h2 id="1-기본-구조">1. 기본 구조</h2>
+        <p>JF 언어의 모든 실행 문장(statement)은 반드시 마침표(<code>.</code>)로 끝나야 합니다. 이는 하나의 명령이 끝났음을 언어에 알려주는 규칙입니다.</p>
+        <p>만약 한 줄에 여러 개의 문장을 작성하고 싶다면, 각 문장을 콜론(<code>:</code>)으로 구분할 수 있습니다.</p>
+        <h4>예시: "Hello, World!" 출력</h4>
+        <pre><code>console.print("Hello, World!").</code></pre>
+        <h4>예시: 한 줄에 여러 문장 작성</h4>
+        <pre><code>x is 10: console.print(x).</code></pre>
+
+        <h2 id="2-주석-comments">2. 주석 (Comments)</h2>
+        <p>주석은 코드에 대한 설명을 작성하는 부분으로, 실제 프로그램 실행에는 영향을 주지 않습니다. JF 언어에서는 <code>note:</code> 키워드로 주석을 시작합니다. <code>note:</code>가 나오면 그 줄의 끝까지 모든 내용은 주석으로 처리됩니다.</p>
+        <pre><code>note: 이 줄은 전체가 주석입니다.
+x is 100. note: 이 부분은 주석으로 처리됩니다.</code></pre>
+
+        <h2 id="3-변수와-자료형-variables-and-data-types">3. 변수와 자료형 (Variables and Data Types)</h2>
+        
+        <h3 id="31-선언과-할당">3.1 선언과 할당</h3>
+        <p>변수는 값을 저장하는 공간입니다. JF 언어에서는 <code>is</code> 키워드를 사용하여 변수를 선언하고 값을 할당합니다.</p>
+        <pre><code>note: 변수 age에 숫자 25를 할당합니다.
+age is 25.
+
+note: 변수 user_name에 문자열 "Jeaho"를 할당합니다.
+user_name is "Jeaho".
+
+note: 다른 변수나 연산의 결과를 할당할 수도 있습니다.
+total_price is 1000 + 500.</code></pre>
+
+        <h3 id="32-자료형의-종류">3.2 자료형의 종류</h3>
+        <p>JF 언어는 다음과 같은 기본 자료형을 지원합니다.</p>
+        <ul>
+            <li><strong>정수 (Integer):</strong> <code>10</code>, <code>0</code>, <code>-25</code>와 같은 숫자입니다.</li>
+            <li><strong>문자열 (String):</strong> <code>"Hello"</code>, <code>'World'</code>와 같이 따옴표(<code>"</code> 또는 <code>'</code>)로  감싸인 텍스트입니다.</li>
+            <li><strong>불리언 (Boolean):</strong> <code>true</code> 또는 <code>false</code> 값을 가지며, 주로 조건의 참/거짓을 나타냅니다.</li>
+        </ul>
+        <pre><code>count is 10.         note: 정수형 변수
+message is "Hi".     note: 문자열 변수
+is_active is true.   note: 불리언 변수</code></pre>
+
+        <h3 id="33-문자열-보간-string-interpolation">3.3 문자열 보간 (String Interpolation)</h3>
+        <p>문자열 내부에 변수 값을 쉽게 포함시킬 수 있는 기능입니다. <code>@{변수명}</code> 형식을 사용하면 해당 부분에 변수의 값이 자동으로 삽입됩니다.</p>
+        <pre><code>name is "Alex".
+age is 30.
+
+note: 문자열 안에 name과 age 변수의 값을 포함하여 출력합니다.
+console.print("My name is @{name} and I am @{age} years old.").
+
+note: 실행 결과 -> My name is Alex and I am 30 years old.</code></pre>
+
+        <h2 id="4-연산자-operators">4. 연산자 (Operators)</h2>
+
+        <h3 id="41-산술-연산자">4.1 산술 연산자</h3>
+        <p>숫자 계산에 사용되는 연산자입니다.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align:center;">연산자</th>
+                    <th>설명</th>
+                    <th>예시</th>
+                    <th>결과</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align:center;"><code>+</code></td>
+                    <td>덧셈</td>
+                    <td><code>10 + 5</code></td>
+                    <td><code>15</code></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center;"><code>-</code></td>
+                    <td>뺄셈</td>
+                    <td><code>10 - 5</code></td>
+                    <td><code>5</code></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center;"><code>*</code></td>
+                    <td>곱셈</td>
+                    <td><code>10 * 5</code></td>
+                    <td><code>50</code></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center;"><code>/</code></td>
+                    <td>나눗셈</td>
+                    <td><code>10 / 5</code></td>
+                    <td><code>2</code></td>
+                </tr>
+            </tbody>
+        </table>
+        <p><strong>특징:</strong> <code>+</code> 연산자는 피연산자 중 하나라도 문자열이면, 나머지 값도 문자열로 변환하여 두 문자열을 연결합니다.</p>
+        <pre><code>result is "Price: " + 100.
+console.print(result). note: "Price: 100" 출력</code></pre>
+
+        <h3 id="42-비교-연산자">4.2 비교 연산자</h3>
+        <p>두 값의 크기를 비교하며, 결과는 불리언(<code>true</code> 또는 <code>false</code>) 값으로 나옵니다.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align:center;">연산자</th>
+                    <th>설명</th>
+                    <th>예시</th>
+                    <th>결과</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align:center;"><code>==</code></td>
+                    <td>같음</td>
+                    <td><code>5 == 5</code></td>
+                    <td><code>true</code></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center;"><code>!=</code></td>
+                    <td>다름</td>
+                    <td><code>5 != 3</code></td>
+                    <td><code>true</code></td>
+                </tr>
+                 <tr>
+                    <td style="text-align:center;"><code>&lt;</code></td>
+                    <td>보다 작음</td>
+                    <td><code>3 &lt; 5</code></td>
+                    <td><code>true</code></td>
+                </tr>
+                 <tr>
+                    <td style="text-align:center;"><code>&gt;</code></td>
+                    <td>보다 큼</td>
+                    <td><code>3 &gt; 5</code></td>
+                    <td><code>false</code></td>
+                </tr>
+                 <tr>
+                    <td style="text-align:center;"><code>&lt;=</code></td>
+                    <td>보다 작거나 같음</td>
+                    <td><code>5 &lt;= 5</code></td>
+                    <td><code>true</code></td>
+                </tr>
+                 <tr>
+                    <td style="text-align:center;"><code>&gt;=</code></td>
+                    <td>보다 크거나 같음</td>
+                    <td><code>3 &gt;= 5</code></td>
+                    <td><code>false</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 id="43-논리-연산자">4.3 논리 연산자</h3>
+        <p>불리언 값들을 조합하여 새로운 불리언 결과를 만들어냅니다.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align:center;">연산자</th>
+                    <th>설명</th>
+                    <th>예시</th>
+                    <th>결과</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align:center;"><code>and</code></td>
+                    <td><strong>그리고(AND):</strong> 양쪽 모두 <code>true</code>일 때만 <code>true</code></td>
+                    <td><code>true and false</code></td>
+                    <td><code>false</code></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center;"><code>or</code></td>
+                    <td><strong>또는(OR):</strong> 둘 중 하나라도 <code>true</code>이면 <code>true</code></td>
+                    <td><code>true or false</code></td>
+                    <td><code>true</code></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center;"><code>not</code></td>
+                    <td><strong>아님(NOT):</strong> 불리언 값을 반대로 뒤집음</td>
+                    <td><code>not true</code></td>
+                    <td><code>false</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="5-내장-기능-built-in-features">5. 내장 기능 (Built-in Features)</h2>
+
+        <h3 id="51-consoleprint">5.1 <code>console.print()</code></h3>
+        <p>괄호 안의 값을 화면에 출력합니다. 쉼표(<code>,</code>)를 사용하여 여러 개의 값을 한 번에 출력할 수 있으며, 값들은 공백으로 구분되어 출력됩니다.</p>
+        <pre><code>x is 10.
+y is 20.
+console.print("The value of x is", x).
+console.print(x, "+", y, "is", x + y).
+
+note: 실행 결과
+note: The value of x is 10
+note: 10 + 20 is 30</code></pre>
+
+        <h3 id="52-consoleread">5.2 <code>console.read()</code></h3>
+        <p>사용자로부터 한 줄의 입력을 받습니다. 이 기능은 주로 사용자가 입력한 값을 변수에 저장할 때 사용됩니다. <code>console.read()</code>는 선택적으로 <code>int()</code>나 <code>string()</code>을 인자로 받아 입력받은 값을 해당 타입으로 변환하려고 시도합니다. 기본값은 <code>string()</code> 입니다.</p>
+        <pre><code>note: 사용자의 이름을 입력받아 name 변수에 저장합니다.
+console.print("Enter your name: ").
+name is console.read(string()).
+
+note: 사용자의 나이를 입력받아 정수형으로 age 변수에 저장합니다.
+console.print("Enter your age: ").
+age is console.read(int()).
+
+console.print("Hello, @{name}! You are @{age} years old.").</code></pre>
+
+        <h2 id="6-타입-변환-type-casting">6. 타입 변환 (Type Casting)</h2>
+        <p>값의 자료형을 다른 자료형으로 명시적으로 변환하는 기능입니다.</p>
+        <ul>
+            <li><code>int(값)</code>: 주어진 값을 정수(Integer)로 변환합니다.</li>
+            <li><code>string(값)</code>: 주어진 값을 문자열(String)으로 변환합니다.</li>
+        </ul>
+        <pre><code>note: 문자열 "123"을 숫자 123으로 변환합니다.
+num_str is "123".
+num_int is int(num_str).
+console.print(num_int + 7). note: 130 출력
+
+note: 숫자 456을 문자열 "456"으로 변환합니다.
+my_num is 456.
+my_str is string(my_num).
+console.print("The number is " + my_str).</code></pre>
+    </div>
+</body>
+</html>

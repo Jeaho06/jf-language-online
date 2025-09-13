@@ -1,4 +1,3 @@
-# jf-language-online
 # JF Language Online IDE
 
 [![Run Online IDE](https://img.shields.io/badge/Run-Online%20IDE-blue.svg)](https://jf-language-online.pages.dev)
